@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Blog</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-4">
+        <h1><%= blog.title %></h1>
+        <img src="<%= blog.coverImageURl%>" height="300px">
+        <pre><%= blog.body %></pre>
+    </div>
+
+    <div class="container mt-4">
+        <img src="<%= blog.createdBy.userImage %>" width="50px">
+        <%= blog.createdBy.fullName  %>
+    </div>
+
+
+    <div class="container mt-4">
+        <h1>Commant (<%= comments.length  %>)</h1>
+        <% if (locals.user) { %>
+            <form action="/blog/comment/<%= blog._id  %>" method="post">
+                <div class="mb-3">
+                  <input type="text" name="content" class="form-control" placeholder="Enter Your Comment">
+                   <button clas="btn btn-sm btn-primary" type="submit">Add</button>
+                </div>
+            </form>
+        <% } %>
+    </div>
+
+    <div class="container mt-4">
+        <% comments.forEach(comment => { %>
+            <% if (comment.createdBy) { %>
+                <img src="<%= comment.createdBy.userImage %>" width="50px" />
+                <%= comment.createdBy.fullName %>
+            <% } else { %>
+                <!-- Handle the case where createdBy is undefined -->
+                <p>Anonymous</p>
+            <% } %>
+            <pre><%= comment.content %></pre>
+        <% }) %>
+    </div>
+    <%- include('./partials/script') %>
+</body>
+</html>
