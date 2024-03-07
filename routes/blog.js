@@ -30,8 +30,8 @@ router.get("/:id", async (req, res) => {
     const blog = await Blog.findById(req.params.id).populate("createdBy");
     let comments = await Comment.find({ blogId: req.params.id });
     comments = await Comment.populate(comments, { path: "createdBy", select: "userImage fullName" });
-    let user ;
-    if(req.user._id) user = await User.findById(req.user._id);
+    let user = undefined ;
+    if(req.user && req.user._id) user = await User.findById(req.user._id);
     return res.render("blog", {
       user: req.user,
       blog,

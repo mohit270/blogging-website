@@ -32,16 +32,20 @@ app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")))
 
-app.get('/', async(req,res)=>{
+app.get('/', async (req, res) => {
     const allBlog = await Blog.find({});
-    let user ;
-    if(req.user) user = await User.findById(req.user._id);
-    return res.render('home',{ 
+    let userName;
+    if (req.user) {
+        const user = await User.findById(req.user._id);
+        userName = user ? user.fullName : undefined;
+    }
+    return res.render('home', {
         user: req.user,
         blogs: allBlog,
-        userName: (req.user && user) ? user.fullName : undefined,
+        userName: userName,
     });
 });
+
 
 app.use('/user',userRouter);
 app.use('/blog',blogRouter);
