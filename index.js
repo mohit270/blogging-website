@@ -12,15 +12,14 @@ const User = require('./models/user');
 const app = express();
 const PORT = process.env.PORT || 8400;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL)
-.then(() => {
-console.log('MongoDB connected');
+
+mongoose.connect('mongodb://localhost:27017/blogDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-.catch(err => {
-console.error('MongoDB connection error:', err);
-process.exit(1); // Exit the process if unable to connect to MongoDB
-});
+  .then(() => console.log('Connected to MongoDB locally'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
 
 
 app.use(express.urlencoded({extended:false}));
@@ -28,7 +27,7 @@ app.use(express.urlencoded({extended:false}));
 app.set('view engine','ejs');
 app.set('views',path.resolve('./views'));
 
-app.use(cookieParser());
+app.use(cookieParser());  
 app.use(checkForAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")))
 

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <%- include('./partials/head') %>
-    <title>Blog</title>
+    <title>Blog Master</title>
 </head>
 <body>
     <%- include('./partials/nav') %>
     <div class="container mt-4">
         <h1><%= blog.title %></h1>
-        <img src="<%= blog.coverImageURl%>" height="300px">
+        <img src="<%= blog.coverImageURl%>" height="300px" >
         <pre><%= blog.body %></pre>
     </div>
 
@@ -42,6 +42,64 @@
             <pre><%= comment.content %></pre>
         <% }) %>
     </div>
+    <style>
+    /* Container Styles */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title Styles */
+    .container h1 {
+        font-family: 'Georgia', serif;
+        font-size: 2.5em;
+        color: #343a40;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Image Styles */
+    .container img {
+        display: block;
+        margin: 0 auto 20px;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Blog Body Styles */
+    .container pre {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.1em;
+        color: #495057;
+        line-height: 1.6;
+        background-color: #ffffff;
+        padding: 15px;
+        border-left: 4px solid #007bff;
+        border-radius: 4px;
+        white-space: pre-wrap; /* Allows text to wrap in the pre element */
+        word-wrap: break-word; /* Breaks long words to fit within the container */
+    }
+
+    /* Additional Styles */
+    .container pre code {
+        background-color: #f1f1f1;
+        padding: 2px 4px;
+        border-radius: 4px;
+        color: #d63384;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Spacing and Alignment */
+    .mt-4 {
+        margin-top: 1.5rem;
+    }
+    </style>
     <%- include('./partials/script') %>
 </body>
 </html>
