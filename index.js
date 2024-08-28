@@ -13,21 +13,21 @@ const app = express();
 const PORT = process.env.PORT || 8400;
 
 
-mongoose.connect('mongodb://localhost:27017/blogDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
-  .then(() => console.log('Connected to MongoDB locally'))
-  .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => console.log('Connected to MongoDB locally'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 
 
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 
-app.set('view engine','ejs');
-app.set('views',path.resolve('./views'));
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
 
-app.use(cookieParser());  
+app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")))
 
@@ -46,7 +46,7 @@ app.get('/', async (req, res) => {
 });
 
 
-app.use('/user',userRouter);
-app.use('/blog',blogRouter);
+app.use('/user', userRouter);
+app.use('/blog', blogRouter);
 
-app.listen(PORT,()=> console.log(`Working fined at port: ${PORT}`));
+app.listen(PORT, () => console.log(`Working fined at port: ${PORT}`));
